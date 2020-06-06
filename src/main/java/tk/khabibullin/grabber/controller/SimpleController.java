@@ -19,16 +19,13 @@ public class SimpleController {
 
     @GetMapping("/")
     public String getClosestCodeforcesContest() {
-        String message = codeforcesConnector.getContests().getResult().stream()
+        codeforcesConnector.getContests().getResult().stream()
                 .filter(contest -> contest.getStartTime().isAfter(Instant.now()))
                 .sorted(Comparator.comparing(CodeforcesContest::getStartTime))
-                .map(codeforcesContest -> {
-                    return codeforcesContest.getName() + "\n"
-                            + codeforcesContest.getStartTime().toString() + "\n"
-                            + codeforcesContest.getDurationSeconds();
-                })
-                .collect(Collectors.joining("\n"));
-        telegramConnector.sendMessage(message);
+                .map(codeforcesContest -> codeforcesContest.getName() + " "
+                        + codeforcesContest.getStartTime().toString() + " "
+                        + codeforcesContest.getDurationSeconds())
+                .forEach(telegramConnector::sendMessage);
         return "OK!";
     }
 }
