@@ -17,7 +17,7 @@ public class HttpTelegramConnector implements TelegramConnector {
 
     @Override
     public TelegramMessage sendMessage(String text) {
-        String url = BASE_URL + telegramToken + "/sendMessage?chatId="+myTelegramChatId+"&text="+text;
+        String url = BASE_URL + telegramToken + "/sendMessage?chat_id="+myTelegramChatId+"&text="+text;
         System.err.println(url);
         System.err.println(myTelegramChatId);
         System.err.println(text);
