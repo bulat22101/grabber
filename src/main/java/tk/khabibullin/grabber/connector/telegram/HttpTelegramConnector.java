@@ -17,13 +17,10 @@ public class HttpTelegramConnector implements TelegramConnector {
 
     @Override
     public TelegramMessage sendMessage(String text) {
-        Map<String, String> data = new HashMap<>();
-        data.put("chatId", myTelegramChatId);
-        data.put("text", text);
-        String url = BASE_URL + telegramToken + "/sendMessage";
+        String url = BASE_URL + telegramToken + "/sendMessage?chatId="+myTelegramChatId+"&text="+text;
         System.err.println(url);
         System.err.println(myTelegramChatId);
         System.err.println(text);
-        return restTemplate.getForEntity(url, TelegramMessage.class, data).getBody();
+        return restTemplate.getForEntity(url, TelegramMessage.class).getBody();
     }
 }
