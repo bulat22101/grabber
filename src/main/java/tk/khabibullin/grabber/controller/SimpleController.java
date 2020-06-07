@@ -21,8 +21,8 @@ public class SimpleController {
         codeforcesConnector.getContests().getResult().stream()
                 .filter(contest -> contest.getStartTime().isAfter(Instant.now()))
                 .sorted(Comparator.comparing(CodeforcesContest::getStartTime))
-                .map(codeforcesContest -> codeforcesContest.getName() + "\n"
-                        + codeforcesContest.getStartTime().toString() + "\n"
+                .map(codeforcesContest -> codeforcesContest.getName() + " "
+                        + codeforcesContest.getStartTime().toString() + " "
                         + codeforcesContest.getDurationSeconds())
                 .forEach(telegramConnector::sendMessage);
         return "OK!";
