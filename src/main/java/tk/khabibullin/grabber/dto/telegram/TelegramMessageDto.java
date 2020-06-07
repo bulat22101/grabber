@@ -7,12 +7,12 @@ import lombok.Value;
 import java.time.Instant;
 
 @Value
-public class TelegramMessage {
+public class TelegramMessageDto {
     Long messageId;
     Instant time;
 
     @JsonCreator
-    public TelegramMessage(
+    public TelegramMessageDto(
             @JsonProperty("message_id") Long messageId,
             @JsonProperty("date") Instant time
     ) {

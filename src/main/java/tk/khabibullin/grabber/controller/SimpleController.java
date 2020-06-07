@@ -9,7 +9,6 @@ import tk.khabibullin.grabber.dto.codeforces.CodeforcesContest;
 
 import java.time.Instant;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,8 +21,8 @@ public class SimpleController {
         codeforcesConnector.getContests().getResult().stream()
                 .filter(contest -> contest.getStartTime().isAfter(Instant.now()))
                 .sorted(Comparator.comparing(CodeforcesContest::getStartTime))
-                .map(codeforcesContest -> codeforcesContest.getName() + " "
-                        + codeforcesContest.getStartTime().toString() + " "
+                .map(codeforcesContest -> codeforcesContest.getName() + "\n"
+                        + codeforcesContest.getStartTime().toString() + "\n"
                         + codeforcesContest.getDurationSeconds())
                 .forEach(telegramConnector::sendMessage);
         return "OK!";
