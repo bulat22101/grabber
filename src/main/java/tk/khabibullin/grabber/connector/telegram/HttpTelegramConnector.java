@@ -3,9 +3,7 @@ package tk.khabibullin.grabber.connector.telegram;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.client.RestTemplate;
 import tk.khabibullin.grabber.dto.telegram.TelegramMessageDto;
-
-import java.util.HashMap;
-import java.util.Map;
+import tk.khabibullin.grabber.dto.telegram.TelegramSendMessageRequestDto;
 
 @RequiredArgsConstructor
 public class HttpTelegramConnector implements TelegramConnector {
@@ -17,9 +15,7 @@ public class HttpTelegramConnector implements TelegramConnector {
     @Override
     public TelegramMessageDto sendMessage(String text) {
         String url = BASE_URL + telegramToken + "/sendMessage";
-        Map<String, String> params = new HashMap<>();
-        params.put("chat_id", myTelegramChatId);
-        params.put("text", text);
-        return restTemplate.postForEntity(url, null, TelegramMessageDto.class, params).getBody();
+        TelegramSendMessageRequestDto requestDto = new TelegramSendMessageRequestDto(myTelegramChatId, text);
+        return restTemplate.postForEntity(url, requestDto, TelegramMessageDto.class).getBody();
     }
 }
