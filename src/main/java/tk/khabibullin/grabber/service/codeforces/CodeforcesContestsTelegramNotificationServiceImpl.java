@@ -10,6 +10,7 @@ import tk.khabibullin.grabber.dto.telegram.TelegramSendMessageRequestDto;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class CodeforcesContestsTelegramNotificationServiceImpl implements Codefo
     public TelegramMessageDto sendAllFutureContestsNotification(String chatId) {
         List<CodeforcesContest> futureContests = codeforcesConnector.getContests().getResult().stream()
                 .filter(codeforcesContest -> codeforcesContest.getStartTime().isAfter(Instant.now()))
-                .sorted()
+                .sorted(Comparator.comparing(CodeforcesContest::getStartTime))
                 .collect(Collectors.toList());
         System.err.printf("Found %d future contests.\n", futureContests.size());
         String messageText = futureContests.stream()
