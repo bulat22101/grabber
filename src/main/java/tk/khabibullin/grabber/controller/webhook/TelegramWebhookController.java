@@ -11,7 +11,7 @@ import tk.khabibullin.grabber.service.TelegramUpdateResolver;
 @RestController
 @RequiredArgsConstructor
 public class TelegramWebhookController {
-    TelegramUpdateResolver telegramUpdateResolver;
+    private final TelegramUpdateResolver telegramUpdateResolver;
 
     @PostMapping("/webhook")
     public ResponseEntity<String> postUpdate(@RequestBody TelegramUpdateDto update) {
