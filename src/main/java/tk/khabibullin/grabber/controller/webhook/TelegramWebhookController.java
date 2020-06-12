@@ -13,7 +13,7 @@ import tk.khabibullin.grabber.service.TelegramUpdateResolver;
 public class TelegramWebhookController {
     TelegramUpdateResolver telegramUpdateResolver;
 
-    @PostMapping("/webhook/${telegramToken}")
+    @PostMapping("/webhook")
     public ResponseEntity<String> postUpdate(@RequestBody TelegramUpdateDto update) {
         telegramUpdateResolver.resolveUpdate(update);
         return ResponseEntity.ok("OK");
