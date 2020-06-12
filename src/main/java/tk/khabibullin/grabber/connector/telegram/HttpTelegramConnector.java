@@ -1,21 +1,31 @@
 package tk.khabibullin.grabber.connector.telegram;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import tk.khabibullin.grabber.dto.telegram.TelegramMessageDto;
 import tk.khabibullin.grabber.dto.telegram.TelegramSendMessageRequestDto;
 
-@RequiredArgsConstructor
+@Component
 public class HttpTelegramConnector implements TelegramConnector {
     final static String BASE_URL = "https://api.telegram.org/bot";
     final RestTemplate restTemplate;
     final String telegramToken;
-    final String myTelegramChatId;
+
+    public HttpTelegramConnector(
+            RestTemplate restTemplate,
+            @Value("${telegramToken}") String telegramToken
+    ) {
+        this.restTemplate = restTemplate;
+        this.telegramToken = telegramToken;
+    }
 
     @Override
-    public TelegramMessageDto sendMessage(String text) {
+    public TelegramMessageDto sendMessage(TelegramSendMessageRequestDto sendMessageRequest) {
         String url = BASE_URL + telegramToken + "/sendMessage";
-        TelegramSendMessageRequestDto requestDto = new TelegramSendMessageRequestDto(myTelegramChatId, text);
-        return restTemplate.postForEntity(url, requestDto, TelegramMessageDto.class).getBody();
+        ResponseEntity<TelegramMessageDto> responseEntity =
+                restTemplate.postForEntity(url, sendMessageRequest, TelegramMessageDto.class);
+        return responseEntity.getBody();
     }
 }

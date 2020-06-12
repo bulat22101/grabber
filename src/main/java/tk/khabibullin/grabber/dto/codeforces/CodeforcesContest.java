@@ -4,14 +4,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 
+import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @Value
 public class CodeforcesContest {
     Long id;
     String name;
     Instant startTime;
-    Long durationSeconds;
+    Duration duration;
     Long relativeTimeSeconds;
 
     @JsonCreator
@@ -25,7 +27,7 @@ public class CodeforcesContest {
         this.id = id;
         this.name = name;
         this.startTime = Instant.ofEpochSecond(startTimeSeconds);
-        this.durationSeconds = durationSeconds;
+        this.duration = Duration.of(durationSeconds, ChronoUnit.SECONDS);
         this.relativeTimeSeconds = relativeTimeSeconds;
     }
 }

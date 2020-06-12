@@ -1,7 +1,8 @@
 package tk.khabibullin.grabber.connector.telegram;
 
 import tk.khabibullin.grabber.dto.telegram.TelegramMessageDto;
+import tk.khabibullin.grabber.dto.telegram.TelegramSendMessageRequestDto;
 
 public interface TelegramConnector {
-    TelegramMessageDto sendMessage(String text);
+    TelegramMessageDto sendMessage(TelegramSendMessageRequestDto sendMessageRequest);
 }
