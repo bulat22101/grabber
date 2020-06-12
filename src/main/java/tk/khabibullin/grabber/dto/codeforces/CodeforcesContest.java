@@ -21,7 +21,7 @@ public class CodeforcesContest {
             @JsonProperty("id") Long id,
             @JsonProperty("name") String name,
             @JsonProperty("startTimeSeconds") Long startTimeSeconds,
-            @JsonProperty("DurationSeconds") Long durationSeconds,
+            @JsonProperty("durationSeconds") Long durationSeconds,
             @JsonProperty("relativeTimeSeconds") Long relativeTimeSeconds
     ) {
         this.id = id;
