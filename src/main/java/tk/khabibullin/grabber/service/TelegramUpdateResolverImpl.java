@@ -18,7 +18,7 @@ public class TelegramUpdateResolverImpl implements TelegramUpdateResolver {
     public void resolveUpdate(TelegramUpdateDto update) {
         Optional.ofNullable(update)
                 .map(TelegramUpdateDto::getMessage)
-                .filter(message -> message.getText().contains("/getFutureContests"))
+                .filter(message -> message.getText().contains("/get_future_contests"))
                 .map(TelegramMessageDto::getChat)
                 .map(TelegramChatDto::getId)
                 .ifPresent(codeforcesContestsTelegramNotificationService::sendAllFutureContestsNotification);
