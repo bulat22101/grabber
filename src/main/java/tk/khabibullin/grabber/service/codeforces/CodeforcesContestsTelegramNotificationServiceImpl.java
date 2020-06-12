@@ -9,6 +9,7 @@ import tk.khabibullin.grabber.dto.telegram.TelegramMessageDto;
 import tk.khabibullin.grabber.dto.telegram.TelegramSendMessageRequestDto;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -29,7 +30,7 @@ public class CodeforcesContestsTelegramNotificationServiceImpl implements Codefo
         System.err.printf("Found %d future contests.\n", futureContests.size());
         String messageText = futureContests.stream()
                 .map(this::convertCodeforcesContestToTelegramMessage)
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n\n"));
         TelegramSendMessageRequestDto messageRequest = new TelegramSendMessageRequestDto(chatId, messageText);
         return telegramConnector.sendMessage(messageRequest);
     }
@@ -38,7 +39,7 @@ public class CodeforcesContestsTelegramNotificationServiceImpl implements Codefo
         return String.format(
                 "%s\n%s\n%s",
                 contest.getName(),
-                DateTimeFormatter.RFC_1123_DATE_TIME.format(contest.getStartTime()),
+                DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneId.of("UTC")).format(contest.getStartTime()),
                 contest.getDuration()
         );
     }
