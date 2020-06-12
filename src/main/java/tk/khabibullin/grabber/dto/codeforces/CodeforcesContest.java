@@ -17,7 +17,7 @@ public class CodeforcesContest {
     Long relativeTimeSeconds;
 
     @JsonCreator
-    CodeforcesContest(
+    public CodeforcesContest(
             @JsonProperty("id") Long id,
             @JsonProperty("name") String name,
             @JsonProperty("startTimeSeconds") Long startTimeSeconds,
